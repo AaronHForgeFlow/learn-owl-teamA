@@ -37,11 +37,17 @@ class Form extends Component {
       this.state.players.push({id: this.state.players.length})
     }
   }
-  redirigir() {
-    // Establecer la ubicación de la nueva página local
-    console.log('HOla')
-    window.location.href = "../Respuesta/index.html";
+  SaveData = async () => {
+    console.log("1111111111")
+    const response = await fetch('http://localhost:8000/padel_app/get_partner/', {"is_club":1}); // TODO: poner en el metodo de respuesta leer datos
+    response.then
+    console.log(response)
+    const myJson = await response.json(); //extract JSON from the http response
+    console.log(myJson)
+    // do something with myJson
+    // return xxxx
   }
+  
 }
 
 Form.template = xml`
@@ -84,6 +90,7 @@ Form.template = xml`
        Ciudad: <input t-model.lazy="state.location"/>
       </div>
       <button onclick="window.location.href = '../Respuesta/index.html'"> Enviar </button>
+      <button t-on-click="SaveData"> TEST API </button>
       <hr/>
     </div>
     </templates>
