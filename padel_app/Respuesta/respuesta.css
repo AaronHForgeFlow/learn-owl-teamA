@@ -1,0 +1,20 @@
+/* Seleccionar el elemento de la tarjeta */
+div {
+  /* Darle un fondo azul */
+  background-color: #6ea8eb;
+  /* Centrar el elemento */
+  margin: auto;
+  /* Establecer el ancho máximo de la tarjeta */
+  max-width: 500px;
+  /* Establecer el espacio entre el borde del elemento y su contenido */
+  padding: 20px;
+  /* Darle esquinas redondeadas */
+  border-radius: 10px;
+  /* Cambiar el color del texto a blanco */
+  color: #fff;
+
+}
+
+div * {
+  text-align: center;
+}
