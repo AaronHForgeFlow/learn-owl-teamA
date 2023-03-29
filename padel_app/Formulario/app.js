@@ -39,11 +39,18 @@ class Form extends Component {
   }
   SaveData = async () => {
     console.log("1111111111")
-    const response = await fetch('http://localhost:8000/padel_app/get_partner/', {"is_club":1}); // TODO: poner en el metodo de respuesta leer datos
-    response.then
-    console.log(response)
-    const myJson = await response.json(); //extract JSON from the http response
-    console.log(myJson)
+    const response_players = await fetch('http://localhost:8000/padel_app/get_players/');
+    response_players.then
+    console.log(response_players)
+    const myJson_players = await response_players.json(); //extract JSON from the http response
+    console.log(myJson_players)
+
+    console.log("22222222222")
+    const response_clubs = await fetch('http://localhost:8000/padel_app/get_clubs/');
+    response_clubs.then
+    console.log(response_clubs)
+    const myJson_clubs = await response_clubs.json(); //extract JSON from the http response
+    console.log(myJson_clubs)
     // do something with myJson
     // return xxxx
   }
