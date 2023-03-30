@@ -12,8 +12,8 @@ class Jugador extends Component {
 }
 Jugador.template = xml /* xml */`
 <div class="jugador">
-  Nombre: <input t-model="state.text"/>
-  Email: <input t-model.lazy="state.othertext"/>
+  Nombre: <input class="jname" t-model="state.text"/>
+  Email: <input class="jemail" t-model.lazy="state.othertext"/>
 </div>`
 
 
@@ -40,22 +40,65 @@ class Form extends Component {
   SaveData = async () => {
     console.log("1111111111")
 
-    const response_players = await fetch('http://localhost:8000/padel_app/get_players/');
+    let response_players = await fetch('http://localhost:8000/padel_app/get_players/', {method: 'GET', cache: "no-store"});
     response_players.then
     console.log(response_players)
-    const myJson_players = await response_players.json(); //extract JSON from the http response
+    let myJson_players = await response_players.json(); //extract JSON from the http response
     console.log(myJson_players)
-
+    let myJson_clubs = {}
     console.log("22222222222")
-    const response_clubs = await fetch('http://localhost:8000/padel_app/get_clubs/');
+    let response_clubs = await fetch('http://localhost:8000/padel_app/get_clubs/', {method: 'GET', cache: "no-store"},
+    );
     response_clubs.then
     console.log(response_clubs)
-    const myJson_clubs = await response_clubs.json(); //extract JSON from the http response
+    myJson_clubs = await response_clubs.json(); //extract JSON from the http response
     console.log(myJson_clubs)
     // do something with myJson
     // return xxxx
   }
+
+  PassData = async () => {
+    console.log("1111111111")
+    // let data = { username: "example" };
+    const jugadors = document.getElementsByClassName("jugador");
+    // let namea = document.getElementsByClassName("jname")[0].value
+    //let misEmails = document.getElementsByClassName("jemail");
+    for (let i=0; i < jugadors.length; i++) {
+      console.log(jugadors[i]);
+    }
+    
+    const requestOptions = {
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' },
+      // body: JSON.stringify(misElementos)
+    };
+
+    let response_players = await fetch('http://localhost:8000/padel_app/save_player/', requestOptions);
+
+    // const data = { username: "example" };
+    // fetch("https://example.com/profile", {
+    //   method: "POST", // or 'PUT'
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(data),
+    // })
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     console.log("Success:", data);
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error:", error);
+    //   });
+
+    response_players.then
+    console.log(response_players)
+    let myJson_players = await response_players.json(); //extract JSON from the http response
+    console.log(myJson_players)
+    let myJson_clubs = {}
+  }
   
+
 }
 
 Form.template = xml`
@@ -101,6 +144,7 @@ Form.template = xml`
           </div>
           <button onclick="window.location.href = '../Loading2/game.html'"> Enviar </button>
           <button t-on-click="SaveData"> TEST API </button>
+          <button t-on-click="PassData"> TEST SEND </button>
           <hr/>
         </div>
       </div>  
