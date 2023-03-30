@@ -39,7 +39,7 @@ class Form extends Component {
   }
   SaveData = async () => {
     console.log("1111111111")
-    const response = await fetch('http://localhost:8000/padel_app/get_partner/', {"is_club":1}); // TODO: poner en el metodo de respuesta leer datos
+    const response = await fetch('http://localhost:8000/padel_app/get_partner/'); // TODO: poner en el metodo de respuesta leer datos
     response.then
     console.log(response)
     const myJson = await response.json(); //extract JSON from the http response
@@ -52,46 +52,50 @@ class Form extends Component {
 
 Form.template = xml`
     <templates>
-    <div t-name="Form">
-      <h1>PADELMER</h1>
-      <div class="nombre">
-        Numero jugadores:
-        <select  t-model="state.number" id="numPlayers" t-on-change= "viewPlayers">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-        </select>
-      </div>
+    <div class="container" t-name="Form">
       <div class="row">
-      <t t-foreach="state.players" t-as="player" t-key="player.id">
-      <Jugador/>
-      </t>
-      </div>
-      <div class="nombre">
-        Nivel:
-        <select  t-model="state.color">
-            <option value="paquete">Paquete</option>
-            <option value="amateur">Amateur</option>
-            <option value="prof">Profesional</option>
-            <option value="top">Top</option>
-        </select>
-      </div>
-      <div class="fecha">
-      FECHA
-        <input type="date" id="start" name="trip-start"
-        value="2018-07-22"
-        min="2018-01-01" max="2018-12-31">
-        </input>
-        <span/> 
-        <input type="time" id="hora" name="hora" min="09:00:00" max="18:00:00" step="3600" />
-      </div>
-      <div class="location">
-       Ciudad: <input t-model.lazy="state.location"/>
-      </div>
-      <button onclick="window.location.href = '../Respuesta/index.html'"> Enviar </button>
-      <button t-on-click="SaveData"> TEST API </button>
-      <hr/>
+        <div class="col-6">
+          <h1>PADELMER</h1>
+          <div class="nombre">
+            Numero jugadores:
+            <select  t-model="state.number" id="numPlayers" t-on-change= "viewPlayers">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+            </select>
+          </div>
+          <div class="row">
+          <t t-foreach="state.players" t-as="player" t-key="player.id">
+          <Jugador/>
+          </t>
+          </div>
+          <div class="nombre">
+            Nivel:
+            <select  t-model="state.color">
+                <option value="paquete">Paquete</option>
+                <option value="amateur">Amateur</option>
+                <option value="prof">Profesional</option>
+                <option value="top">Top</option>
+            </select>
+          </div>
+          <div class="fecha">
+          FECHA 
+            <input type="date" id="start" name="trip-start"
+            value="2018-07-22"
+            min="2018-01-01" max="2018-12-31">
+            </input>
+            <span/> 
+            <input type="time" id="hora" name="hora" min="09:00:00" max="18:00:00" step="3600" />
+          </div>
+          <div class="location">
+          Ciudad: <input t-model.lazy="state.location"/>
+          </div>
+          <button onclick="window.location.href = '../Loading2/game.html'"> Enviar </button>
+          <button t-on-click="SaveData"> TEST API </button>
+          <hr/>
+        </div>
+      </div>  
     </div>
     </templates>
   `
