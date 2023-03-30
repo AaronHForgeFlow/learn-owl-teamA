@@ -60,17 +60,23 @@ class Form extends Component {
   PassData = async () => {
     console.log("1111111111")
     // let data = { username: "example" };
+    const infoJugadors = [];
     const jugadors = document.getElementsByClassName("jugador");
     // let namea = document.getElementsByClassName("jname")[0].value
     //let misEmails = document.getElementsByClassName("jemail");
     for (let i=0; i < jugadors.length; i++) {
-      console.log(jugadors[i]);
+       const nombre = jugadors[i].querySelector(".jname").value;
+       const email = jugadors[i].querySelector(".jemail").value;
+
+       const jugador = {nombre,email};
+       infoJugadors.push(jugador);      
     }
+    console.log(infoJugadors);
     
     const requestOptions = {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
-      // body: JSON.stringify(misElementos)
+      body: JSON.stringify(infoJugadors)
     };
 
     let response_players = await fetch('http://localhost:8000/padel_app/save_player/', requestOptions);
