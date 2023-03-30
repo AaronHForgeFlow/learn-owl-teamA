@@ -61,7 +61,10 @@ class Form extends Component {
     console.log("1111111111")
     // let data = { username: "example" };
     const infoJugadors = [];
+    const OtherInfo = [];
     const jugadors = document.getElementsByClassName("jugador");
+    const nivel_sel = document.getElementsByClassName("nivel");
+    const location_sel = document.getElementsByClassName("location");
     // let namea = document.getElementsByClassName("jname")[0].value
     //let misEmails = document.getElementsByClassName("jemail");
     for (let i=0; i < jugadors.length; i++) {
@@ -69,14 +72,17 @@ class Form extends Component {
        const email = jugadors[i].querySelector(".jemail").value;
 
        const jugador = {nombre,email};
-       infoJugadors.push(jugador);      
-    }
+       infoJugadors.push(jugador);       
+    }    
+    const nivel = nivel_sel[0].querySelector("option").value
+    OtherInfo.push(nivel);
+    const location = location_sel[0].querySelector("input").value
+    OtherInfo.push(location);
     console.log(infoJugadors);
-    
     const requestOptions = {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(infoJugadors)
+      body: JSON.stringify({"id": 1, "params": infoJugadors, "other": OtherInfo})
     };
 
     let response_players = await fetch('http://localhost:8000/padel_app/save_player/', requestOptions);
@@ -129,7 +135,7 @@ Form.template = xml`
           </div>
           <div class="nombre">
             Nivel:
-            <select  t-model="state.color">
+            <select class="nivel" t-model="state.color">
                 <option value="paquete">Paquete</option>
                 <option value="amateur">Amateur</option>
                 <option value="prof">Profesional</option>
