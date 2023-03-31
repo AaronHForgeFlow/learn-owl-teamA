@@ -131,11 +131,16 @@ class Form extends Component {
       }
       
     }
-    console.log(infoJugadors) 
+    console.log(infoJugadors)  
+    localStorage.setItem('jugadors', JSON.stringify(infoJugadors)) 
+    localStorage.setItem('club_chosen', club_chosen) 
+    //localStorage.setItem('location', location)
 
 
+    window.location.href = '../Loading2/game.html'
 
-  }  
+  }
+  
 
 }
 
@@ -144,7 +149,7 @@ Form.template = xml`
     <div class="container" t-name="Form">
       <div class="row">
         <div class="col-6">
-          <h1>PADELMER</h1>
+          <h1 class="deporte-title" >PADELMER</h1>
           <div class="nombre">
             Numero jugadores:
             <select  t-model="state.number" id="numPlayers" t-on-change= "viewPlayers">
@@ -159,7 +164,7 @@ Form.template = xml`
           <Jugador/>
           </t>
           </div>
-          <div class="nombre">
+          <div class="nombre2">
             Nivel:
             <select id="nivel" class="nivel" t-model="state.color">
                 <option id="paq" value="paquete">Paquete</option>
@@ -180,10 +185,12 @@ Form.template = xml`
           <div class="location">
           Ciudad: <input t-model.lazy="state.location"/>
           </div>
-          <button onclick="window.location.href = '../Loading2/game.html'"> Enviar </button>
-          <button t-on-click="SaveData"> TEST API </button>
-          <button t-on-click="PassData"> TEST SEND </button>
+          <button class="my-button" t-on-click="SaveData"> RESERVAR!!! </button>
           <hr/>
+          <footer>
+          
+          <p class="copyright">No te preocupes si pierdes, siempre puedes culpar a la pista.</p>
+          </footer>
         </div>
       </div>  
     </div>

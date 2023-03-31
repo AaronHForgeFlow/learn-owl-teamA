@@ -1,9 +1,12 @@
 /* Estilos para el formulario de pádel */
 
 body {
-  background-color: #F8F8F8;
-}
+  background-image: url('fondopadel.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
 
+}
 .Form {
   margin: 0 auto;
   max-width: 600px;
@@ -45,6 +48,9 @@ select option {
   display: flex;
   align-items: center;
   margin-bottom: 20px;
+  color:white;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 18px;
 }
 
 .fecha input[type="date"], .fecha input[type="time"] {
@@ -60,8 +66,18 @@ select option {
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
 }
 
+.nombre2 {
+  margin-bottom: 20px;
+  color:black;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 18px;
+}
+
 .location {
   margin-bottom: 20px;
+  color:white;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 18px;
 }
 
 .location input {
@@ -94,13 +110,17 @@ button[type="submit"] {
 button[type="submit"]:hover {
   background-color: #004488;
 }
-
 .row {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  
 }
-
+.nombre{
+  color: white;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 18px;
+}
 .jugador {
   margin-bottom: 20px;
   padding: 10px;
@@ -127,4 +147,56 @@ button[type="submit"]:hover {
 
 .jugador input::placeholder {
   color: #999;
+}
+
+.my-button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  align-items: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 30px 20px;
+  margin-left: 30%;  
+  cursor: pointer;
+  border-radius: 5px;
+  transition-duration: 0.4s;
+}
+
+.my-button:hover {
+  background-color: #3e8e41;
+  text-align: "center"; 
+}
+
+.deporte-title {
+  text-align: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #fff;
+  font-size: 4rem;
+  margin-top: 3rem;
+  text-shadow: 2px 2px 4px #000;
+  background: linear-gradient(45deg, #ff0000, #ff8c00, #ffd700, #008000, #0000ff, #4b0082, #9400d3);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: hue 20s infinite linear;
+}
+
+@keyframes hue {
+  from {
+    filter: hue-rotate(0deg);
+  }
+  to {
+    filter: hue-rotate(360deg);
+  }
+}
+
+
+footer {
+  color: white;
+  font-size: 32px;
+  text-align: center;
+  margin-top: 50px;
 }
