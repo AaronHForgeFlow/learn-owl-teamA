@@ -37,9 +37,48 @@ class Form extends Component {
       this.state.players.push({id: this.state.players.length})
     }
   }
+
+
+  PassData = async () => {
+    console.log("1111111111")
+    // let data = { username: "example" };
+    const infoJugadors = [];
+    const OtherInfo = [];
+    const jugadors = document.getElementsByClassName("jugador");
+    const nivel_sel = document.getElementById("nivel");
+    const location_sel = document.getElementsByClassName("location");
+    // let namea = document.getElementsByClassName("jname")[0].value
+    //let misEmails = document.getElementsByClassName("jemail");
+    for (let i=0; i < jugadors.length; i++) {
+       const nombre = jugadors[i].querySelector(".jname").value;
+       const email = jugadors[i].querySelector(".jemail").value;
+
+       const jugador = {nombre,email};
+       infoJugadors.push(jugador);       
+    }    
+    const nivel = nivel_sel.value
+    OtherInfo.push(nivel);
+    const location = location_sel[0].querySelector("input").value
+    OtherInfo.push(location);
+    console.log(infoJugadors);
+    const requestOptions = {
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({"id": 1, "params": infoJugadors, "other": OtherInfo})
+    };
+
+    let response_players = await fetch('http://localhost:8000/padel_app/save_player/', requestOptions);
+    response_players.then
+    console.log(response_players)
+    let myJson_players = await response_players.json(); //extract JSON from the http response
+    console.log(myJson_players)
+    
+  } 
+
+
   SaveData = async () => {
     console.log("1111111111")
-
+    this.PassData()
     let response_players = await fetch('http://localhost:8000/padel_app/get_players/', {method: 'GET', cache: "no-store"});
     response_players.then
     console.log(response_players)
@@ -52,64 +91,51 @@ class Form extends Component {
     response_clubs.then
     console.log(response_clubs)
     myJson_clubs = await response_clubs.json(); //extract JSON from the http response
-    console.log(myJson_clubs)
-    // do something with myJson
-    // return xxxx
-  }
-
-  PassData = async () => {
-    console.log("1111111111")
-    // let data = { username: "example" };
-    const infoJugadors = [];
-    const OtherInfo = [];
-    const jugadors = document.getElementsByClassName("jugador");
-    const nivel_sel = document.getElementsByClassName("nivel");
+    const clubs = Object.values(myJson_clubs)
     const location_sel = document.getElementsByClassName("location");
-    // let namea = document.getElementsByClassName("jname")[0].value
-    //let misEmails = document.getElementsByClassName("jemail");
-    for (let i=0; i < jugadors.length; i++) {
-       const nombre = jugadors[i].querySelector(".jname").value;
-       const email = jugadors[i].querySelector(".jemail").value;
-
-       const jugador = {nombre,email};
-       infoJugadors.push(jugador);       
-    }    
-    const nivel = nivel_sel[0].querySelector("option").value
-    OtherInfo.push(nivel);
     const location = location_sel[0].querySelector("input").value
-    OtherInfo.push(location);
-    console.log(infoJugadors);
-    const requestOptions = {
-      method: 'post',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({"id": 1, "params": infoJugadors, "other": OtherInfo})
-    };
+    var club_chosen = null
+    for (let i=0; i < clubs.length; i++) {
+      if (clubs[i].location == location){
+        club_chosen = clubs[i].name 
+      }
+    }
+    console.log(club_chosen)
+    var infoJugadors = [];
+    const jugadors = document.getElementsByClassName("jugador");
+    for (let i=0; i < jugadors.length; i++) {
+      const nombre = jugadors[i].querySelector(".jname").value;
+      const email = jugadors[i].querySelector(".jemail").value;
 
-    let response_players = await fetch('http://localhost:8000/padel_app/save_player/', requestOptions);
+      const jugador = {nombre,email};
+      infoJugadors.push(jugador);       
+   }    
+    const players = Object.values(myJson_players)
+    const nivel = document.getElementById("nivel").value;
+    const num_players = document.getElementById("numPlayers").value;
+    for (let i=0; i < 4 - num_players; i++) {
+      let sortir = true
+      let j = 0
+      while (sortir && j < players.length) {
+        if (players[j].nivel == nivel){
+          let nombre = players[j].name
+          let email = players[j].email
+          let jugador = {nombre,email};
+          infoJugadors.push(jugador)
+          console.log("FAIL")
+          sortir = false
+          players.splice(j, 1)
+        }
+        j++;
 
-    // const data = { username: "example" };
-    // fetch("https://example.com/profile", {
-    //   method: "POST", // or 'PUT'
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(data),
-    // })
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     console.log("Success:", data);
-    //   })
-    //   .catch((error) => {
-    //     console.error("Error:", error);
-    //   });
+      }
+      
+    }
+    console.log(infoJugadors) 
 
-    response_players.then
-    console.log(response_players)
-    let myJson_players = await response_players.json(); //extract JSON from the http response
-    console.log(myJson_players)
-    let myJson_clubs = {}
-  }
-  
+
+
+  }  
 
 }
 
@@ -135,11 +161,11 @@ Form.template = xml`
           </div>
           <div class="nombre">
             Nivel:
-            <select class="nivel" t-model="state.color">
-                <option value="paquete">Paquete</option>
-                <option value="amateur">Amateur</option>
-                <option value="prof">Profesional</option>
-                <option value="top">Top</option>
+            <select id="nivel" class="nivel" t-model="state.color">
+                <option id="paq" value="paquete">Paquete</option>
+                <option id="ama" value="amateur">Amateur</option>
+                <option id="prof" value="prof">Profesional</option>
+                <option id="top" value="top">Top</option>
             </select>
           </div>
           <div class="fecha">
